@@ -1,5 +1,6 @@
-import { ragChat } from '@/lib/rag-chat';
-import React from 'react'
+import { ragChat } from "@/lib/rag-chat";
+import { redis } from "@/lib/redis";
+import React from "react";
 
 interface PageProps {
   params: {
@@ -7,25 +8,33 @@ interface PageProps {
   };
 }
 
-function reconstructUrl({url} : {url: string[]}) {
-    const decodedComponents = url.map((component) => decodeURIComponent(component));
-    return decodedComponents.join('/');
+function reconstructUrl({ url }: { url: string[] }) {
+  const decodedComponents = url.map((component) =>
+    decodeURIComponent(component)
+  );
+  return decodedComponents.join("/");
 }
 
-const Page = async ({params}: PageProps) => {
+const Page = async ({ params }: PageProps) => {
+  const reconstructedUrl = reconstructUrl({ url: params.url as string[] });
+  const isAlreadyIndexed = await redis.sismember(
+    "indexed-urls",
+    reconstructedUrl
+  );
 
-    const reconstructedUrl = reconstructUrl({url: params.url as string[]})
-    console.log(params)
-
+  if (!isAlreadyIndexed) {
     await ragChat.context.add({
-        type: "html",
-        source: reconstructedUrl,
-        config: {chunkOverlap: 50, chunkSize: 2000},
-    })
+      type: "html",
+      source: reconstructedUrl,
+      config: { chunkOverlap: 50, chunkSize: 2000 },
+    });
 
-  return (
-    <div>Page1</div>
-  )
-}
+    await redis.sadd("indexed-urls", reconstructedUrl);
+  } else{
+    console.log("URL already indexed:", reconstructedUrl);
+  }
 
-export default Page
+  return <div>Page1</div>;
+};
+
+export default Page;
