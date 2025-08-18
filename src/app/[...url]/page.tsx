@@ -30,6 +30,7 @@ const Page = async ({ params }: PageProps) => {
     reconstructedUrl
   );
 
+  const initialMessages = await ragChat.history.getMessages({ amount: 10, sessionId });
 
   if (!isAlreadyIndexed) {
     await ragChat.context.add({
@@ -43,7 +44,7 @@ const Page = async ({ params }: PageProps) => {
     console.log("URL already indexed:", reconstructedUrl);
   }
 
-  return <ChatWrapper sessionId={sessionId} />;
+  return <ChatWrapper sessionId={sessionId} initialMessages={initialMessages} />;
 };
 
 export default Page;
