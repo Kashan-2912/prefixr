@@ -1,13 +1,14 @@
 "use client"
 
 import React, { PropsWithChildren } from 'react'
-import { NextUIProvider } from '@nextui-org/react'
+// import { NextUIProvider } from '@nextui-org/react'
+import { HeroUIProvider } from '@heroui/react'
 
 const Providers = ({children} : PropsWithChildren) => {
   return (
-    <NextUIProvider>
+    <HeroUIProvider>
         {children}
-    </NextUIProvider>
+    </HeroUIProvider>
   )
 }
 
