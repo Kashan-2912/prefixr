@@ -5,9 +5,9 @@ import { cookies } from "next/headers";
 import React from "react";
 
 interface PageProps {
-  params: {
-    url: string | string[] | undefined;
-  };
+  params: Promise<{
+    url: string[],
+  }>;
 }
 
 function reconstructUrl({ url }: { url: string[] }) {
@@ -30,7 +30,7 @@ const Page = async ({ params }: PageProps) => {
     reconstructedUrl
   );
 
-  const initialMessages = await ragChat.history.getMessages({ amount: 10, sessionId });
+  const initialMessages = await ragChat.history.getMessages({ amount: 20, sessionId });
 
   if (!isAlreadyIndexed) {
     await ragChat.context.add({
