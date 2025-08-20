@@ -34,9 +34,10 @@ export default function RootLayout({
         )}
       >
         <Providers>
-          <main className="h-screen dark text-foreground bg-background">
-            {children}
-          </main>
+          <div className="relative min-h-screen">
+            {/* <MeshWrapper /> */}
+            <main className="relative z-10">{children}</main>
+          </div>
         </Providers>
       </body>
     </html>
