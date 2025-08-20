@@ -44,7 +44,6 @@ const ChatInput = ({
                 placeholder="Ask this website..."
                 className="resize-none bg-zinc-800  rounded-xl text-base"
               />
-
               <Button
                 size="sm"
                 type="submit"
