@@ -5,12 +5,13 @@ import React from "react";
 import Messages from "./Messages";
 import ChatInput from "./ChatInput";
 
-const ChatWrapper = ({ sessionId, initialMessages }: { sessionId: string, initialMessages: Message[] }) => {
+const ChatWrapper = ({ sessionId, initialMessages, reconstructedUrl }: { sessionId: string, initialMessages: Message[], reconstructedUrl: string }) => {
   const { messages, handleInputChange, input, setInput, handleSubmit } =
     useChat({
       api: "/api/chat-stream",
       body: {
         sessionId,
+        reconstructedUrl,
       },
       initialMessages,
     });
