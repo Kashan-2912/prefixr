@@ -1,4 +1,4 @@
-# PREFIXR
+# PREFIXR - WEB BOT INSTEAD OF CHATBOT
 
 Turn any website into your **personal research assistant**—instantly.  
 With PREFIXR, you can drop into any webpage, add a prefix, and start asking AI-powered questions about its content in real-time—without leaving the site.  
